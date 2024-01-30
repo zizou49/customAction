@@ -62,9 +62,18 @@ jobs:
           path: ./dist
       - name: Output contents
         run: ls
+      # - name: Deploy site
+      #   id: deploy
+      #   uses: ./.github/actions/deploy-s3-app
+      #   env:
+      #     AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+      #     AWS_SECRET_ACCESS_KEY:  ${{secrets.AWS_SECRET_ACCESS_KEY}}
+      #   with:
+      #     bucket: customactions-test
+      #     dist-folder: ./dist
       - name: Deploy site
         id: deploy
-        uses: ./.github/actions/deploy-s3-app
+        uses: ./.github/actions/deploy-s3-docker
         env:
           AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
           AWS_SECRET_ACCESS_KEY:  ${{secrets.AWS_SECRET_ACCESS_KEY}}
