@@ -10,7 +10,6 @@ executors:
 
 aliases:
   - &print_bucket
-    working_directory: ~/app
     docker:
       - image: sangukou/react-app:latest
 
