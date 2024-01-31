@@ -62,6 +62,14 @@ jobs:
           path: ./dist
       - name: Output contents
         run: ls
+      - name: Deploy site
+        env:
+          AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+          AWS_SECRET_ACCESS_KEY:  ${{secrets.AWS_SECRET_ACCESS_KEY}}
+        uses: zizou49/my-action-v1@v1
+        with:
+            bucket: customactions-test
+            dist-folder: ./dist
       # - name: Deploy site
       #   id: deploy
       #   uses: ./.github/actions/deploy-s3-app
@@ -84,14 +92,7 @@ jobs:
       #   run: |
       #     echo "Live URL: ${{steps.deploy.outputs.website-url}}"
       #customAction
-      - name: Deploy site
-        env:
-          AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
-          AWS_SECRET_ACCESS_KEY:  ${{secrets.AWS_SECRET_ACCESS_KEY}}
-        uses: zizou49/my-action-v1
-        with:
-            bucket: customactions-test
-            dist-folder: ./dist
+    
           
   # informaion:
   #   runs-on: ubuntu-latest
