@@ -1,6 +1,13 @@
 version: 2.1
 orbs:
   slack: circleci/slack@4.12.6
+
+executors:
+  ubuntu-22-04:
+    machine:
+      image: ubuntu-2004:202010-01
+      docker_layer_caching: true
+
 jobs:
   prepare:
     docker:
