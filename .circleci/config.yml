@@ -11,7 +11,14 @@ jobs:
       - run: echo "<< parameters.message >>"
 
 workflows:
-  my-workflow:
+ uat:
     jobs:
+      - prepare:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only:
+                - uat
       - print-a-message:
           message: Hello!
