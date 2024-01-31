@@ -8,13 +8,27 @@ executors:
       image: ubuntu-2004:202010-01
       docker_layer_caching: true
 
+aliases:
+  - &print_bucket
+    working_directory: ~/project
+    docker:
+      - image: sangukou/react-app:latest
+
 jobs:
   prepare:
     docker:
       - image: cimg/base:2022.03
 
     steps:
-      - run: echo "hello form github"
+      - run: echo "hello from github"
+
+  start-react-app:
+    <<: *print_bucket
+    steps:
+      - run:
+          name: start server
+          command: |
+            npm start
 
   notify:
     docker:
@@ -49,8 +63,7 @@ workflows:
             tags:
               only:
                 - uat
-      - notify:
-          context: slackNotif
+      - start-react-app:
           requires:
             - prepare
           filters:
@@ -59,5 +72,13 @@ workflows:
             tags:
               only:
                 - uat
-
-#add commenthjh ff
+      - notify:
+          context: slackNotif
+          requires:
+            - start-react-app
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only:
+                - uat
