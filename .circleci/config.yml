@@ -1,5 +1,6 @@
 version: 2.1
-
+orbs:
+  slack: circleci/slack@4.1
 jobs:
   prepare:
     docker:
@@ -8,10 +9,31 @@ jobs:
     steps:
       - run: echo "hello form github"
 
+  notify:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - slack/notify:
+          channel: C06GH4Z8ACT
+          event: fail
+          template: basic_fail_1
+      - slack/notify:
+          channel: C06GH4Z8ACT
+          event: pass
+          template: success_tagged_deploy_1
+
 workflows:
   uat:
     jobs:
       - prepare:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only:
+                - uat
+      - notify:
+          context: slackNotif
           filters:
             branches:
               ignore: /.*/
