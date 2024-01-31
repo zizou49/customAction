@@ -8,7 +8,7 @@ jobs:
       message:
         type: string
     steps:
-      - run: echo "hellooo"
+      - run: echo "<< parameters.message >>"
 
 workflows:
   my-workflow:
