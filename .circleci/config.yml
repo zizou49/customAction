@@ -15,10 +15,6 @@ jobs:
     steps:
       - slack/notify:
           channel: C06GH4Z8ACT
-          event: fail
-          template: basic_fail_1
-      - slack/notify:
-          channel: C06GH4Z8ACT
           event: pass
           template: success_tagged_deploy_1
 
