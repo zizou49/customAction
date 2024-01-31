@@ -44,6 +44,8 @@ workflows:
                 - uat
       - notify:
           context: slackNotif
+          requires:
+            - prepare
           filters:
             branches:
               ignore: /.*/
