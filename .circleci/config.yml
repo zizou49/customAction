@@ -1,18 +1,15 @@
 version: 2.1
 
 jobs:
-  print-a-message:
+  prepare:
     docker:
       - image: cimg/base:2022.03
-    parameters:
-      message:
-        type: string
+
     steps:
-      - run: echo "<< parameters.message >>"
+      - run: echo "hello form github"
 
 workflows:
-
-  my-workflow:
+  uat:
     jobs:
       - prepare:
           filters:
@@ -21,5 +18,3 @@ workflows:
             tags:
               only:
                 - uat
-      - print-a-message:
-          message: Hello!
