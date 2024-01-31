@@ -11,7 +11,8 @@ jobs:
       - run: echo "<< parameters.message >>"
 
 workflows:
- uat:
+
+  my-workflow:
     jobs:
       - prepare:
           filters:
