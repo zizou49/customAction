@@ -20,4 +20,4 @@ jobs:
       uses: cardinalby/git-tag-action@master
       env:
         TAG: "${{ github.event.inputs.target }}"
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
