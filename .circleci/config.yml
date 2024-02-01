@@ -14,6 +14,23 @@ aliases:
     docker:
       - image: sangukou/react-app:latest
 
+commands:
+  run-migration:
+    description: "display all bucket s3"
+    parameters:
+      AWS_CONTEXT:
+        type: enum
+        enum: ["build","prod"]
+      SCOPE:
+        type: enum
+        enum: ["uat","stg","live","demo"]
+    steps:
+      - run:
+          name: Configure AWS CLI
+          command: |
+            AWS_CONTEXT=<< parameters.AWS_CONTEXT >>
+            SCOPE=<< parameters.SCOPE >>
+            echo file-$AWS_CONTEXT-scope-$SCOPE
 jobs:
   prepare:
     docker:
@@ -21,6 +38,9 @@ jobs:
 
     steps:
       - run: echo "hello from github"
+      - run-migration:
+          AWS_CONTEXT: prod
+          SCOPE: live
 
   start-react-app:
     <<: *print_bucket
