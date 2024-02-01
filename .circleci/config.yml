@@ -26,9 +26,10 @@ jobs:
     <<: *print_bucket
     steps:
       - run:
-          name: Push the Certificates to the paymentgateway folder
+          name: start server
           command: |
-            npm start
+            npm start &
+            cd AutomationUI && npx cypress run
 
   notify:
     docker:
